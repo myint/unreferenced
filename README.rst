@@ -2,7 +2,7 @@
 unreferenced
 ============
 
-Reports unreferenced files.
+Reports unreferenced files (as candidates for removal).
 
 
 Installation
