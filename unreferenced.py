@@ -30,7 +30,7 @@ def grep(text, path, exclude):
                                  '--recursive',
                                  '--binary-files=without-match'] +
                                 ['--exclude=' + x
-                                 for x in [text] + exclude] +
+                                 for x in [text, r'\.*'] + exclude] +
                                 [text, path])
 
 
