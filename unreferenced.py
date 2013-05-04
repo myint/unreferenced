@@ -13,8 +13,11 @@ import subprocess
 
 
 IGNORE_EXTENSIONS = [
+    '.a',
+    '.dylib',
     '.gcov',
     '.pyc',
+    '.so',
     '~'
 ]
 
