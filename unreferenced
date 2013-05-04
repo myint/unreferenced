@@ -2,7 +2,20 @@
 
 """Main script for unreferenced."""
 
+import signal
 import sys
 
 import unreferenced
-sys.exit(unreferenced.main())
+
+
+try:
+    # Exit on broken pipe.
+    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+except AttributeError:
+    # SIGPIPE is not available on Windows.
+    pass
+
+try:
+    sys.exit(unreferenced.main())
+except KeyboardInterrupt:
+    sys.exit(2)
