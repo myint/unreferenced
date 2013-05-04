@@ -9,6 +9,13 @@ import os
 import subprocess
 
 
+IGNORE_EXTENSIONS = [
+    '.gcov',
+    '.pyc',
+    '~'
+]
+
+
 def grep(text, path):
     """Return True if text is found in path.
 
@@ -16,6 +23,18 @@ def grep(text, path):
 
     """
     return 0 == subprocess.call(['grep', '--quiet', '--recursive', text, path])
+
+
+def ignore(filename):
+    """Return True if we should ignore filename."""
+    if filename.startswith('.'):
+        return True
+
+    for extension in IGNORE_EXTENSIONS:
+        if filename.endswith(extension):
+            return True
+
+    return False
 
 
 def unreferenced_files(path):
@@ -26,6 +45,9 @@ def unreferenced_files(path):
     """
     for _, directories, filenames in os.walk(path):
         for name in filenames:
+            if ignore(name):
+                continue
+
             if name.endswith('.py'):
                 if grep(name.rsplit('.', 1)[0], path):
                     continue
