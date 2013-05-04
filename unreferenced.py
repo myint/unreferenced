@@ -4,6 +4,9 @@ These files are reported as candidates for removal.
 
 """
 
+__version__ = '0.1'
+
+
 import argparse
 import os
 import subprocess
