@@ -33,14 +33,14 @@ def grep(text, path, exclude):
     # cross-platform manner).
     for root, directories, filenames in os.walk(path):
         for name in filenames:
-            if  0 == subprocess.call(['grep',
-                                      '--quiet',
-                                      '--recursive',
-                                      '--binary-files=without-match'] +
-                                     ['--exclude=' + x
-                                      for x in [text] + exclude] +
-                                     [text,
-                                      os.path.join(root, name)]):
+            if 0 == subprocess.call(['grep',
+                                     '--quiet',
+                                     '--recursive',
+                                     '--binary-files=without-match'] +
+                                    ['--exclude=' + x
+                                     for x in [text] + exclude] +
+                                    [text,
+                                     os.path.join(root, name)]):
                 return True
 
         directories[:] = [d for d in directories if not d.startswith('.')]
