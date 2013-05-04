@@ -25,7 +25,12 @@ def grep(text, path):
     Do a recursive search if path is a directory.
 
     """
-    return 0 == subprocess.call(['grep', '--quiet', '--recursive', text, path])
+    return 0 == subprocess.call(['grep',
+                                 '--quiet',
+                                 '--recursive',
+                                 '--exclude=' + text,
+                                 text,
+                                 path])
 
 
 def ignore(filename):
