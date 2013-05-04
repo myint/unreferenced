@@ -86,7 +86,7 @@ def unreferenced_files(path, exclude_referrers):
 
 
 def main():
-    """Entry point."""
+    """Return nonzero error code if unreferenced files are found."""
     parser = argparse.ArgumentParser()
     parser.add_argument('directories', nargs='+')
     parser.add_argument('--exclude-referrers', default='',
