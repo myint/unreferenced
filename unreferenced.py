@@ -16,6 +16,7 @@ IGNORE_EXTENSIONS = [
     '.a',
     '.dylib',
     '.gcov',
+    '.o',
     '.pyc',
     '.so',
     '~'
