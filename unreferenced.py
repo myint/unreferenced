@@ -19,7 +19,7 @@ IGNORE_EXTENSIONS = [
 ]
 
 
-def grep(text, path):
+def grep(text, path, exclude):
     """Return True if text is found in path.
 
     Do a recursive search if path is a directory.
@@ -28,9 +28,10 @@ def grep(text, path):
     return 0 == subprocess.call(['grep',
                                  '--quiet',
                                  '--recursive',
-                                 '--exclude=' + text,
-                                 text,
-                                 path])
+                                 '--binary-files=without-match'] +
+                                ['--exclude=' + x
+                                 for x in [text] + exclude] +
+                                [text, path])
 
 
 def ignore(filename):
@@ -45,22 +46,24 @@ def ignore(filename):
     return False
 
 
-def unreferenced_files(path):
+def unreferenced_files(path, exclude_referrers):
     """Yield names of unreferenced files in path.
 
     Completely ignore hidden directories when recursing directories.
 
     """
+    _grep = lambda x: grep(x, path, exclude=exclude_referrers)
+
     for root, directories, filenames in os.walk(path):
         for name in filenames:
             if ignore(name):
                 continue
 
             if name.endswith('.py'):
-                if grep(name.rsplit('.', 1)[0], path):
+                if _grep(name.rsplit('.', 1)[0]):
                     continue
             else:
-                if grep(name, path):
+                if _grep(name):
                     continue
 
             yield os.path.join(root, name)
@@ -72,8 +75,13 @@ def main():
     """Entry point."""
     parser = argparse.ArgumentParser()
     parser.add_argument('paths', nargs='+')
+    parser.add_argument('--exclude-referrers', default='',
+                        help='comma-separated list of files to exclude as '
+                             'referrers')
     args = parser.parse_args()
 
     for filename in args.paths:
-        for name in unreferenced_files(filename):
+        for name in unreferenced_files(
+                filename,
+                exclude_referrers=args.exclude_referrers.split(',')):
             print(name)
