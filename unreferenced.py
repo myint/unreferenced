@@ -88,14 +88,18 @@ def unreferenced_files(path, exclude_referrers):
 def main():
     """Entry point."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('paths', nargs='+')
+    parser.add_argument('directories', nargs='+')
     parser.add_argument('--exclude-referrers', default='',
                         help='comma-separated list of files to exclude as '
                              'referrers')
     args = parser.parse_args()
 
-    for filename in args.paths:
+    total = 0
+    for filename in args.directories:
         for name in unreferenced_files(
                 filename,
                 exclude_referrers=args.exclude_referrers.split(',')):
             print(name)
+            total += 1
+
+    return 2 if total else 0

@@ -2,5 +2,7 @@
 
 """Main script for unreferenced."""
 
+import sys
+
 import unreferenced
-unreferenced.main()
+sys.exit(unreferenced.main())
