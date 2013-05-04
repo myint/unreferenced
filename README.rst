@@ -19,5 +19,5 @@ Usage
 ::
 
    $ unreferenced .
-   junk.py
-   unused.png
+   ./junk.py
+   ./unused.png
