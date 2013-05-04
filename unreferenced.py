@@ -43,7 +43,7 @@ def unreferenced_files(path):
     Completely ignore hidden directories when recursing directories.
 
     """
-    for _, directories, filenames in os.walk(path):
+    for root, directories, filenames in os.walk(path):
         for name in filenames:
             if ignore(name):
                 continue
@@ -55,12 +55,13 @@ def unreferenced_files(path):
                 if grep(name, path):
                     continue
 
-            yield name
+            yield os.path.join(root, name)
 
         directories[:] = [d for d in directories if not d.startswith('.')]
 
 
 def main():
+    """Entry point."""
     parser = argparse.ArgumentParser()
     parser.add_argument('paths', nargs='+')
     args = parser.parse_args()
