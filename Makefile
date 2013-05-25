@@ -7,7 +7,3 @@ check:
 
 readme:
 	@restview --long-description --strict
-
-register:
-	@python setup.py register sdist upload
-	@srm ~/.pypirc
