@@ -38,8 +38,7 @@ def grep(text, path, exclude):
                                      '--recursive',
                                      '--binary-files=without-match'] +
                                     ['--exclude=' + x
-                                     for x in [os.path.join(path,
-                                                            text)] + exclude] +
+                                     for x in exclude] +
                                     [text,
                                      os.path.join(root, name)]):
                 return True
@@ -67,7 +66,9 @@ def unreferenced_files(path, exclude_referrers):
     Completely ignore hidden directories when recursing directories.
 
     """
-    _grep = lambda x: grep(x, path, exclude=exclude_referrers)
+    _grep = lambda x: grep(x,
+                           path,
+                           exclude=exclude_referrers + [os.path.join(path, x)])
 
     for root, directories, filenames in os.walk(path):
         for name in filenames:
