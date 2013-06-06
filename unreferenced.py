@@ -38,7 +38,8 @@ def grep(text, path, exclude):
                                      '--recursive',
                                      '--binary-files=without-match'] +
                                     ['--exclude=' + x
-                                     for x in [text] + exclude] +
+                                     for x in [os.path.join(path,
+                                                            text)] + exclude] +
                                     [text,
                                      os.path.join(root, name)]):
                 return True
