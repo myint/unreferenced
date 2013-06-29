@@ -10,7 +10,7 @@ Installation
 
 To install *unreferenced*::
 
-   $ pip install unreferenced
+    $ pip install unreferenced
 
 
 Usage
@@ -18,14 +18,14 @@ Usage
 
 ::
 
-   $ unreferenced .
-   ./junk.py
-   ./unused.png
+    $ unreferenced .
+    ./junk.py
+    ./unused.png
 
 
 Links
 =====
 
 .. image:: https://travis-ci.org/myint/unreferenced.png?branch=master
-   :target: https://travis-ci.org/myint/unreferenced
-   :alt: Build status
+    :target: https://travis-ci.org/myint/unreferenced
+    :alt: Build status
