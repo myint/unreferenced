@@ -8,6 +8,7 @@ __version__ = '0.1.4'
 
 
 import argparse
+import fnmatch
 import os
 import subprocess
 
@@ -32,18 +33,30 @@ def grep(text, path, exclude):
     # Do recursion in Python so we can ignore hidden directories (in a
     # cross-platform manner).
     for root, directories, filenames in os.walk(path):
-        for name in filenames:
+        for full_path in [os.path.realpath(os.path.join(root, _name))
+                          for _name in filenames]:
+
+            if excluded(full_path, exclude):
+                continue
+
             if 0 == subprocess.call(['grep',
                                      '--quiet',
                                      '--recursive',
                                      '--binary-files=without-match'] +
-                                    ['--exclude=' + x
-                                     for x in exclude] +
                                     [text,
-                                     os.path.join(root, name)]):
+                                     os.path.join(root, full_path)]):
                 return True
 
         directories[:] = [d for d in directories if not d.startswith('.')]
+
+    return False
+
+
+def excluded(path, patterns):
+    """Return True if path is excluded by list of patterns."""
+    for pattern in patterns:
+        if fnmatch.fnmatch(path, pattern):
+            return True
 
     return False
 
@@ -96,11 +109,14 @@ def main():
                              'referrers')
     args = parser.parse_args()
 
+    exclude_referrers = [os.path.realpath(pattern)
+                         for pattern in args.exclude_referrers.split(',')]
+
     total = 0
     for filename in args.directories:
         for name in unreferenced_files(
                 filename,
-                exclude_referrers=args.exclude_referrers.split(',')):
+                exclude_referrers=exclude_referrers):
             print(name)
             total += 1
 
