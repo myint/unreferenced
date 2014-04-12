@@ -26,6 +26,6 @@ Usage
 Links
 =====
 
-.. image:: https://travis-ci.org/myint/unreferenced.png?branch=master
+.. image:: https://travis-ci.org/myint/unreferenced.svg?branch=master
     :target: https://travis-ci.org/myint/unreferenced
     :alt: Build status
