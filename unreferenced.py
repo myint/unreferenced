@@ -78,6 +78,9 @@ def unreferenced_files(path, exclude_referrers):
             if name.endswith('.py'):
                 if _grep(name.rsplit('.', 1)[0]):
                     continue
+            elif name.endswith('.java'):
+                if _grep(name.rsplit('.', 1)[0]):
+                    continue
             else:
                 if _grep(name):
                     continue
