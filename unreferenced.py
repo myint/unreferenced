@@ -14,6 +14,7 @@ import subprocess
 
 IGNORE_EXTENSIONS = [
     '.a',
+    '.class',
     '.dylib',
     '.gcov',
     '.o',
