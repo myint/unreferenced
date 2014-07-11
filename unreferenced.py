@@ -17,6 +17,7 @@ IGNORE_EXTENSIONS = [
     '.class',
     '.dylib',
     '.gcov',
+    '.jar',
     '.o',
     '.pyc',
     '.so',
