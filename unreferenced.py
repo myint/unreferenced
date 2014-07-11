@@ -4,7 +4,7 @@ These files are reported as candidates for removal.
 
 """
 
-__version__ = '0.1.5'
+__version__ = '0.1.6'
 
 
 import argparse
