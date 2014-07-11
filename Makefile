@@ -6,7 +6,7 @@ check:
 		--rcfile=/dev/null \
 		--disable=bad-continuation \
 		unreferenced.py setup.py
-	python setup.py --long-description | rst2html --strict > /dev/null
+	python setup.py --long-description | rstcheck -
 	scspell unreferenced unreferenced.py setup.py README.rst
 
 readme:
