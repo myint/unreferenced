@@ -4,6 +4,7 @@ check:
 	pylint \
 		--report=no \
 		--rcfile=/dev/null \
+		--disable=bad-continuation \
 		unreferenced.py setup.py
 	python setup.py --long-description | rst2html --strict > /dev/null
 	scspell unreferenced unreferenced.py setup.py README.rst
