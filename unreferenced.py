@@ -4,12 +4,12 @@ These files are reported as candidates for removal.
 
 """
 
-__version__ = '0.1.6'
-
-
 import argparse
 import os
 import subprocess
+
+
+__version__ = '0.1.6'
 
 
 IGNORE_EXTENSIONS = [
@@ -68,9 +68,10 @@ def unreferenced_files(path, exclude_referrers):
     Completely ignore hidden directories when recursing directories.
 
     """
-    _grep = lambda x: grep(x,
-                           path,
-                           exclude=exclude_referrers + [os.path.join(path, x)])
+    def _grep(text):
+        return grep(text,
+                    path,
+                    exclude=exclude_referrers + [os.path.join(path, text)])
 
     for root, directories, filenames in os.walk(path):
         for name in filenames:
