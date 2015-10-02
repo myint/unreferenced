@@ -2,7 +2,7 @@ check:
 	pep8 unreferenced unreferenced.py setup.py
 	pep257 unreferenced unreferenced.py setup.py
 	pylint \
-		--report=no \
+		--reports=no \
 		--rcfile=/dev/null \
 		--disable=bad-continuation \
 		--disable=missing-docstring \
