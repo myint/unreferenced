@@ -15,6 +15,7 @@ __version__ = '0.1.6'
 IGNORE_EXTENSIONS = [
     '.a',
     '.class',
+    '.d',
     '.dylib',
     '.gcov',
     '.jar',
