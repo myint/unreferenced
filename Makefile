@@ -1,6 +1,6 @@
 check:
-	pep8 unreferenced unreferenced.py setup.py
-	pep257 unreferenced unreferenced.py setup.py
+	pycodestyle unreferenced unreferenced.py setup.py
+	pydocstyle unreferenced unreferenced.py setup.py
 	pylint \
 		--reports=no \
 		--rcfile=/dev/null \
